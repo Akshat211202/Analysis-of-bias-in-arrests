@@ -171,7 +171,7 @@ ggplot(table1_long, aes(x = perceived_race, y = value, fill = year)) +
 
 Referring to [@tbl-table1] for the proportion of arrests that resulted in bookings, [@fig-fig2] was plotted with the y-axis representing the percentage of individuals booked after arrest. The data demonstrates a consistent distribution across various ethnic groups, with significantly more individuals being booked following arrest than those who were not. Notably, the percentage of individuals booked ranges between 50% and 55% across all ethnic groups, a pattern that remains consistent in 2021.
 
-However, it is worth highlighting that the Black population had the highest number of individuals booked after arrest in both 2020 and 2021.
+However, it is worth highlighting that the Black population had the highest number of individuals who were booked after arrest in both 2020 and 2021.
 
 ```{r}
 #| warning: false
