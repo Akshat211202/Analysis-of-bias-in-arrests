@@ -270,4 +270,56 @@ cleaned_data <- cleaned_data |>
   )
 This script first selects and renames the columns, then converts the specified columns (arrest_year, search_reason, and booked) to numeric using the mutate() and as.numeric() functions.
 
+table2_long <-
+  cleaned_data |>
+  select(
+    arrest_year,
+    perceived_race,
+    booked
+  ) |>
+  group_by(arrest_year, perceived_race, booked) %>%
+  summarise(n = n(), .groups = "drop") %>%
+  arrange(desc(perceived_race)) %>%
+  filter(!(perceived_race == "None")) %>%
+  pivot_wider(names_from = arrest_year, values_from = n, values_fill = 0)
+
+table2_long <- pivot_longer(table2_long, cols = c("2020", "2021"), names_to = "year", values_to = "value")
+
+ggplot(table2_long, aes(x = perceived_race, y = value, fill = factor(booked))) +
+  geom_bar(stat = "identity", position = "fill") +
+  facet_wrap(~ year, scales = "free_y") +
+  labs(x = "Perceived Race",
+       y = "Percentage of Arrests Booked",
+       fill = "Status") +
+  theme_minimal() +
+  theme(legend.position = "right") + 
+  scale_fill_discrete(labels = c("Not Booked", "Booked")) +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1)) +
+  scale_fill_brewer(palette = "Set1")
+
+change the legend status
+ChatGPT said:
+ChatGPT
+To modify the legend status labels in your plot, you can use the scale_fill_discrete() or scale_fill_manual() function to customize the labels. Here's how you can change the legend status labels more explicitly:
+
+r
+Copy code
+# Change the legend status labels
+ggplot(table2_long, aes(x = perceived_race, y = value, fill = factor(booked))) +
+  geom_bar(stat = "identity", position = "fill") +
+  facet_wrap(~ year, scales = "free_y") +
+  labs(x = "Perceived Race",
+       y = "Percentage of Arrests Booked",
+       fill = "Booking Status") +  # Change the title of the legend to "Booking Status"
+  theme_minimal() +
+  theme(legend.position = "right") + 
+  scale_fill_manual(values = c("0" = "lightblue", "1" = "darkblue"), # Custom colors
+                    labels = c("0" = "Not Booked", "1" = "Booked")) +  # Update legend labels
+  theme(axis.text.x = element_text(angle = 30, hjust = 1)) +
+  scale_fill_brewer(palette = "Set1")  # Optional: change color palette if necessary
+In this modification:
+
+I've added fill = "Booking Status" in the labs() function to change the title of the legend.
+The scale_fill_manual() function is used to map the values 0 and 1 to custom colors and corresponding labels "Not Booked" and "Booked."
+Let me know if you need any further adjustments!
 
