@@ -1,7 +1,7 @@
 ---
 title: "Analyzing Arrest Patterns and Racial Representation in Toronto"
 author: "Akshat Aneja"
-abstract: Toronto is known for its ethnic and cultural diversity, making it a relevant setting for examining potential biases in law enforcement. This paper analyzes arrest data from the Toronto Police Service for the years 2020 and 2021, focusing on the distribution of arrests by ethnic identity, age, and booking status to assess whether systemic bias exists in policing practices. The analysis reveals that, while arrests appear to be driven by objective factors, disparities related to socio-economic status may still exist. These findings provide important insights that can help improve transparency and accountability in policing, contributing to more equitable law enforcement practices.
+abstract: This paper analyzes arrest data from the Toronto Police Service for the years 2020 and 2021, focusing on the distribution of arrests by ethnic identity, age, and booking status to assess whether systemic bias exists in policing practices. The analysis reveals that, while arrests appear to be driven by objective factors, disparities related to socio-economic status may still exist. These findings provide important insights that can help improve transparency and accountability in policing, contributing to more equitable law enforcement practices.
 date: today
 date-format: long
 number-sections: true
@@ -37,11 +37,18 @@ This study fills a crucial gap in the understanding of racial bias in policing i
 
 # Data {#sec-data}
 
-This data is sourced from the Toronto Open Data Portal `opendatatoronto` [@rOpenDataToronto]. The following data is used for an in-depth analysis of arrests and strip searches which involve various ethnic and identity-based groups in the city of Toronto. The information is gathered by the Toronto Police Service (TPS) [@torontoPolice] and is collected under the authority of the Police Services Act. Its purpose is to improve the relationship between the police and the community by being more transparent with the public. The data covers the period from 2020 to 2021.
+This data is sourced from the Toronto Open Data Portal `opendatatoronto` [@rOpenDataToronto]. The following data is used for an in-depth analysis of arrests and strip searches which involve various ethnic and identity-based groups in the city of Toronto covers the period from 2020 to 2021. The information is gathered by the Toronto Police Service (TPS) [@torontoPolice] and is collected under the authority of the Police Services Act.Instrumentation for this process involved the direct input of data by law enforcement officers during or after arrest events, ensuring the capture of relevant variables tied to each arrest.
 
-The data underwent cleaning and analysis using the R programming language [@citeR]. Cleaning was performed with the `tidyverse` package [@rTidyverse], involving the removal of unnecessary columns for the analysis. Subsequently, analysis was conducted utilizing the `dplyr` package [@rDplyr], with the data grouped by ethnic and identity-based categories. Visualization was then executed using the `ggplot2` package [@rGgplot2], depicting the number of arrests and strip searches across various ethnic and identity-based groups.
+The raw dataset comprised 32,000 arrest records from 2020 and 2021, with 26 variables available for analysis which reflects real-time operational data collected through TPS's digital reporting systems, designed to improve transparency and accountability in policing practices. For this study, we focused on specific variables, including Arrest Year, Perceived Race, Age Group, Youth at Arrest, Booked, and the various Search Reasons (Cause Injury, Assist Escape, Possess Weapons, and Possess Evidence). To simplify the analysis, we consolidated these search-related columns into a single "Search Reason" column using the `any()` function [@rDplyr].
 
-The raw dataset consisted of 32,000 arrest records from 2020 and 2021, with 26 variables available for analysis. For this study, we concentrated on specific variables, including Arrest Year, Perceived Race, Age Group, Youth at Arrest, Booked, Search Reason Cause Injury, Search Reason Assist Escape, Search Reason Possess Weapons, and Search Reason Possess Evidence. To streamline the data, we combined similar columns—Search Reason Cause Injury, Search Reason Assist Escape, Search Reason Possess Weapons, and Search Reason Possess Evidence—into a single column called "Search Reason." utilizing the `any()` function [@rDplyr].
+The data underwent cleaning and analysis using the R programming language [@citeR]. Cleaning was performed with the `tidyverse` package [@rTidyverse]. Subsequently, analysis was conducted utilizing the `dplyr` package [@rDplyr], visualization was done using the `ggplot2` package [@rGgplot2], depicting the number of arrests and strip searches across various ethnic and identity-based groups.
+
+## Measurement 
+
+This study aims to estimate the extent of racial bias in arrest patterns across different ethnic groups in Toronto for the years 2020 and 2021. The key variables of interest include Perceived Race, Age Group, Youth at Arrest, and Booking Status. The primary estimand is the relationship between perceived race and arrest outcomes, specifically whether individuals from marginalized communities are disproportionately arrested or booked relative to their representation in the population.
+
+The analysis is conducted using the arrest data as the primary estimator. Arrest records are grouped by ethnic identity, age, and booking status to calculate the distribution of arrests across these categories. The study also considers broader socio-economic factors such as poverty and unemployment, which may affect arrest rates, as potential confounders. By quantifying these relationships through statistical analysis and data visualization, the study seeks to determine whether arrest practices reflect systemic bias or are driven by objective factors.
+
 
 ## Total number of arrests by age group for the year 2020 and 2021 {#sec-Age}
 
@@ -203,9 +210,9 @@ ggplot(table2_long, aes(x = perceived_race, y = value, fill = factor(booked))) +
        fill = "Status") +
   theme_minimal() +
   theme(legend.position = "right") + 
-  scale_fill_discrete(labels = c("Not Booked", "Booked")) +
-  theme(axis.text.x = element_text(angle = 30, hjust = 1)) +
-  scale_fill_brewer(palette = "Set1")
+  scale_fill_manual(values = c("0" = "lightblue", "1" = "darkblue"),
+                    labels = c("0" = "Not Booked", "1" = "Booked")) +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
 ```
 
 ## Number of Arrests by Age Group for the year 2020-2021 {#sec-group}
@@ -254,6 +261,8 @@ However, none of these findings can definitively point to systemic bias without 
 
 While this paper offers several important insights, it is important to acknowledge its limitations. A more detailed comparison of specific ethnic groups and further research are necessary for a deeper understanding of the data. Law enforcement agencies and community advocates can use these findings to develop targeted interventions and enhance community engagement efforts. Additionally, policymakers may consider using this analysis to inform necessary policy adjustments. The need for transparency and accountability in policing remains critical, as emphasized by the Toronto Police Services Board [@rTPSB2019].
 
-In conclusion, the analysis of Toronto's arrest data suggests that, despite concerns about racial bias, arrests appear to be influenced by objective factors rather than racial profiling. The reforms implemented by the Toronto Police Service have contributed to increased transparency and fairness within the police force. Although disparities may exist due to socio-economic factors, the data does not indicate systemic bias. \newpage
+In conclusion, the analysis of Toronto's arrest data suggests that, despite concerns about racial bias, arrests appear to be influenced by objective factors rather than racial profiling. The reforms implemented by the Toronto Police Service have contributed to increased transparency and fairness within the police force. Although disparities may exist due to socio-economic factors, the data does not indicate systemic bias. 
+
+\newpage
 
 # References
