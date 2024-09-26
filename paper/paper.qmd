@@ -43,7 +43,7 @@ The data underwent cleaning and analysis using the R programming language [@cite
 
 The raw dataset consisted of 32,000 arrest records from 2020 and 2021, with 26 variables available for analysis. For this study, we concentrated on specific variables, including Arrest Year, Perceived Race, Age Group, Youth at Arrest, Booked, Search Reason Cause Injury, Search Reason Assist Escape, Search Reason Possess Weapons, and Search Reason Possess Evidence. To streamline the data, we combined similar columns—Search Reason Cause Injury, Search Reason Assist Escape, Search Reason Possess Weapons, and Search Reason Possess Evidence—into a single column called "Search Reason." utilizing the `any()` function [@rDplyr].
 
-## Total number of arrests by age group for the year 2020 and 2021
+## Total number of arrests by age group for the year 2020 and 2021 {#sec-Age}
 
 It is crucial to analyze the distribution of arrests across different age groups to understand potential patterns and disparities. [@tbl-table1] presents a summary of arrest counts for various ethnic groups across all age categories in 2020 and 2021. The age groups included in the dataset are: Under 17, 18 to 24 years, 25 to 34 years, 35 to 44 years, 45 to 54 years, 55 to 64 years, and 65 years and over.
 
@@ -80,15 +80,11 @@ kable(table3_small,
 
 ```
 
+## Arrests by Ethnic and Identity-Based Groups for Year 2020 and 2021 {#sec-eth}
 
-
-## Arrests by Ethnic and Identity-Based Groups for Year 2020 and 2021
-
-Our analysis primarily focuses on the distribution of arrests across different ethnic identities. We extracted data for the following ethnic groups: Black, White, South Asian, East Asian, Middle Eastern, Latin American, Southeast Asian, and Indigenous. 
+Our analysis primarily focuses on the distribution of arrests across different ethnic identities. We extracted data for the following ethnic groups: Black, White, South Asian, East Asian, Middle Eastern, Latin American, Southeast Asian, and Indigenous.
 
 The data for 2020 and 2021 is summarized in [@tbl-table2] and [@tbl-table3]. [@tbl-table2] presents the number of individuals arrested from each ethnic group during these years, while [@tbl-table3] details how many of those arrested were subsequently booked under criminal charges.
-
- 
 
 ```{r}
 #| warning: false
@@ -133,7 +129,6 @@ kable(table2,
       booktabs = TRUE)
 
 ```
-
 
 It is important to note that the OpenDataToronto [@rOpenDataToronto] provides population distribution data by ethnicity. However, due to the size and diversity of Toronto and its numerous wards, it has been challenging to cross-verify this data with crime rate statistics in a comprehensive manner. Further, a more detailed analysis could be conducted by comparing specific ethnic groups directly.
 
@@ -213,10 +208,13 @@ ggplot(table2_long, aes(x = perceived_race, y = value, fill = factor(booked))) +
   scale_fill_brewer(palette = "Set1")
 ```
 
-## Number of Arrests by Age Group for the year 2020-2021
+## Number of Arrests by Age Group for the year 2020-2021 {#sec-group}
 
-As depicted in [@fig-fig3], the data reveals a non-uniform distribution of arrests across age groups. The 25 to 34 and 35 to 44 age groups had the highest number of arrests in both 2020 and 2021. Additionally, the data indicates a notable decrease in arrests for these two age groups between 2020 and 2021. In contrast, other age groups experienced an increase in arrests during the same period, indicating differing trends across age demographics.
+An analysis of arrests by age groups is essential to understanding the demographic patterns of law enforcement activity. [@fig-fig3] illustrates the distribution of arrests across different age groups for the years 2020 and 2021. The age groups included in the dataset are Under 17, 18 to 24 years, 25 to 34 years, 35 to 44 years, 45 to 54 years, 55 to 64 years, and 65 years and over.
 
+The data reveals a non-uniform distribution of arrests across age groups, with 25 to 34 and 35 to 44 age brackets accounting for the highest number of arrests in both 2020 and 2021. However, there is a notable decrease in the number of arrests for these age groups of 2020 to 2021 which indicates that there may be a possible shift in law enforcement activity.
+
+In contrast, the other age groups experienced an increase in arrests during the same period. In particular, the number of arrests for individuals aged 18 to 24 and 45 to 54 saw an upward trend from 2020 to 2021.
 
 ```{r}
 #| warning: false
@@ -246,9 +244,16 @@ ggplot(table3_long, aes(x = perceived_race, y = value, fill = factor(age_group))
 
 # Discussion {#sec-discussion}
 
+In [@sec-Age], the analysis highlights that arrests are not evenly distributed across age groups, with certain age ranges, particularly individuals aged 25 to 44, being more likely to be arrested during the study period. These findings suggest that certain demographic factors related to age may influence interactions with law enforcement. Further exploration is required to understand the socio-economic, behavioral, and legal factors that contribute to the higher arrest rates among individuals in their mid-20s to mid-40s.
+
+In [@sec-eth] the data suggests that there are notable disparities in arrest rates across different ethnic groups, with Black and Indigenous populations being of particular concern. 
+
+In [@sec-group] the findings suggest that law enforcement practices or external factors influencing crime rates may vary significantly across age groups. 
+
+However, none of these findings can definitively point to systemic bias without further context, particularly around socio-economic factors and community-specific conditions.
+
 While this paper offers several important insights, it is important to acknowledge its limitations. A more detailed comparison of specific ethnic groups and further research are necessary for a deeper understanding of the data. Law enforcement agencies and community advocates can use these findings to develop targeted interventions and enhance community engagement efforts. Additionally, policymakers may consider using this analysis to inform necessary policy adjustments. The need for transparency and accountability in policing remains critical, as emphasized by the Toronto Police Services Board [@rTPSB2019].
 
-In conclusion, the analysis of Toronto's arrest data suggests that, despite concerns about racial bias, arrests appear to be influenced by objective factors rather than racial profiling. The reforms implemented by the Toronto Police Service have contributed to increased transparency and fairness within the police force. Although disparities may exist due to socio-economic factors, the data does not indicate systemic bias.
-\newpage
+In conclusion, the analysis of Toronto's arrest data suggests that, despite concerns about racial bias, arrests appear to be influenced by objective factors rather than racial profiling. The reforms implemented by the Toronto Police Service have contributed to increased transparency and fairness within the police force. Although disparities may exist due to socio-economic factors, the data does not indicate systemic bias. \newpage
 
 # References
